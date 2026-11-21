@@ -1122,3 +1122,6 @@ body { background-image:radial-gradient(#343740 1px,transparent 1px)!important; 
 .card.widget { background:#20222A!important; color:#F4F0E6!important; border:2px solid #3C404B!important; border-radius:18px!important; box-shadow:4px 4px 0 #090A0D!important; }
 .card.widget:hover { background:#282B33!important; color:#F4F0E6!important; transform:translate(-2px,-2px)!important; box-shadow:6px 6px 0 #090A0D!important; }
 .card.widget .content { background:transparent!important; }
+
+/* Higher-specificity override for Semantic UI’s white card hover rule. */
+.ui.cards > .card.widget:not(.no-hover):hover { background-color:#282B33!important; color:#F4F0E6!important; }

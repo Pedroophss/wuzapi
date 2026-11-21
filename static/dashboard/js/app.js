@@ -118,31 +118,26 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Handle admin login button click
+  // Toggle between regular user and administrator login modes.
+  const updateLoginMode = () => {
+    if (isAdminLogin) {
+      regularLoginBtn.innerHTML = '<i class="sign-in icon"></i>Login as admin';
+      adminLoginBtn.classList.add('teal');
+      adminLoginBtn.innerHTML = '<i class="user icon"></i>Back to user login';
+      $('.ui.info.message').html('<div class="header mb-4"><i class="user shield icon"></i> Admin Login</div><p>Enter the administrator token to manage all instances.</p>');
+    } else {
+      regularLoginBtn.innerHTML = '<i class="sign-in icon"></i>Login as user';
+      adminLoginBtn.classList.remove('teal');
+      adminLoginBtn.innerHTML = '<i class="shield alternate icon"></i>Switch to admin login';
+      $('.ui.info.message').html('<div class="header mb-4"><i class="user icon"></i> User Login</div><p>Enter your user token to open your WhatsApp dashboard.</p>');
+    }
+  };
+
+  updateLoginMode();
   adminLoginBtn.addEventListener('click', function() {
-    isAdminLogin = true;
-    loginForm.classList.add('loading');
-    
-    // Change button appearance to show admin mode
-    adminLoginBtn.classList.add('teal');
-    adminLoginBtn.innerHTML = '<i class="shield alternate icon"></i> Admin Mode';
+    isAdminLogin = !isAdminLogin;
     $('#loginToken').val('').focus();
-    
-    // Show admin-specific instructions
-    $('.ui.info.message').html(`
-        <div class="header mb-4">
-            <i class="user shield icon"></i>
-            Admin Login
-        </div>
-        <p>Please enter your admin credentials:</p>
-        <ul>
-            <li>Use your admin token in the field above</li>
-        </ul>
-    `);
-    
-    // Focus on token input
-    loginTokenInput.focus();
-    loginForm.classList.remove('loading');
+    updateLoginMode();
   });
 
   // Handle form submission

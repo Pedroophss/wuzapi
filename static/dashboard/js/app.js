@@ -2340,3 +2340,29 @@ async function doBusinessProfile() {
     }
   }
 }
+
+// Keep the access form in one clearly selected login mode.
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('loginForm');
+  const tokenInput = document.getElementById('loginToken');
+  const userButton = document.getElementById('regularLoginBtn');
+  const modeButton = document.getElementById('loginAsAdminBtn');
+  if (!form || !tokenInput || !userButton || !modeButton) return;
+
+  modeButton.addEventListener('click', function(event) {
+    event.stopImmediatePropagation();
+    isAdminLogin = !isAdminLogin;
+    tokenInput.value = '';
+    tokenInput.focus();
+    modeButton.classList.toggle('teal', isAdminLogin);
+    userButton.innerHTML = isAdminLogin
+      ? '<i class="sign-in icon"></i>Login as admin'
+      : '<i class="sign-in icon"></i>Login as user';
+    modeButton.innerHTML = isAdminLogin
+      ? '<i class="user icon"></i>Back to user login'
+      : '<i class="shield alternate icon"></i>Switch to admin login';
+    document.querySelector('.ui.info.message').innerHTML = isAdminLogin
+      ? '<div class="header mb-4"><i class="user shield icon"></i> Admin Login</div><p>Enter the administrator token to manage all instances.</p>'
+      : '<div class="header mb-4"><i class="user icon"></i> User Login</div><p>Enter your user token to open your WhatsApp dashboard.</p>';
+  }, true);
+});
